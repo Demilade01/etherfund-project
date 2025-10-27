@@ -1,9 +1,14 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { ThemeContextType } from '../types';
 
-const ThemeContext = createContext();
+const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-export const ThemeProvider = ({ children }) => {
-  const [isDarkMode, setIsDarkMode] = useState(() => {
+interface ThemeProviderProps {
+  children: ReactNode;
+}
+
+export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
     // Check localStorage for saved theme preference
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
@@ -31,7 +36,7 @@ export const ThemeProvider = ({ children }) => {
     console.log('Body background should be:', isDarkMode ? '#13131a' : '#ffffff');
   }, [isDarkMode]);
 
-  const toggleTheme = () => {
+  const toggleTheme = (): void => {
     console.log('Toggling theme from', isDarkMode ? 'dark' : 'light', 'to', !isDarkMode ? 'dark' : 'light');
     setIsDarkMode(!isDarkMode);
   };
@@ -43,7 +48,7 @@ export const ThemeProvider = ({ children }) => {
   );
 };
 
-export const useTheme = () => {
+export const useTheme = (): ThemeContextType => {
   const context = useContext(ThemeContext);
   if (!context) {
     throw new Error('useTheme must be used within a ThemeProvider');
