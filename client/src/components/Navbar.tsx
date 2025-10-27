@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { useStateContext } from '../context';
-import { CustomButton } from './'
+import { CustomButton } from '.';
 import { logo, menu, search, thirdweb } from '../assets';
 import { navlinks } from '../constants';
 
-const Navbar = () => {
+const Navbar: React.FC = () => {
   const navigate = useNavigate();
-  const [isActive, setisActive] = useState('dashboard');
-  const [toggleDrawer, setToggleDrawer] = useState(false);
-  const { connect, address} = useStateContext();
+  const [isActive, setIsActive] = useState<string>('dashboard');
+  const [toggleDrawer, setToggleDrawer] = useState<boolean>(false);
+  const { connect, address } = useStateContext();
 
   return (
     <div className='flex md:flex-row flex-col-reverse justify-between mb-[35px] gap-6 '>
@@ -27,9 +27,9 @@ const Navbar = () => {
           title={address ? 'Create a campaign' : 'Connect'}
           styles={address ? 'bg-[#4acd8d]' : 'bg-[#8c6dfd]' }
           handleClick={() => {
-          if(address) navigate('create-campaign')
-          else  connect()
-        }}
+            if (address) navigate('create-campaign');
+            else connect();
+          }}
         />
 
         <Link to="/profile">
@@ -59,38 +59,38 @@ const Navbar = () => {
                 key={link.name}
                 className={`flex p-4 ${isActive === link.name && 'bg-[#3a3a43]'}`}
                 onClick={() => {
-                  setisActive(link.name);
+                  setIsActive(link.name);
                   setToggleDrawer(false);
-                  navigate(link.link)
+                  navigate(link.link);
                 }}
               >
-              <img
-                src={link.imgUrl}
-                alt={link.name}
-                className={`w-[24px] h-[24px] object-contain ${isActive === link.name ? 'graysale-0' : 'grayscale' }`}
-              />
-               <p className={`ml-[20px] font-epilogue font-semibold text-[14px] ${isActive === link.name ? 'text-[#1dc071]' : 'text-[#808191'}`}>
-                {link.name}
-               </p>
+                <img
+                  src={link.imgUrl}
+                  alt={link.name}
+                  className={`w-[24px] h-[24px] object-contain ${isActive === link.name ? 'grayscale-0' : 'grayscale' }`}
+                />
+                <p className={`ml-[20px] font-epilogue font-semibold text-[14px] ${isActive === link.name ? 'text-[#1dc071]' : 'text-[#808191]'}`}>
+                  {link.name}
+                </p>
               </li>
             ))}
           </ul>
 
-          <div clas>
+          <div className='px-4'>
             <CustomButton
               btnType="button"
               title={address ? 'Create a campaign' : 'Connect'}
               styles={address ? 'bg-[#4acd8d]' : 'bg-[#8c6dfd]' }
               handleClick={() => {
-              if(address) navigate('create-campaign')
-              else connect();
+                if (address) navigate('create-campaign');
+                else connect();
               }}
             />
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
