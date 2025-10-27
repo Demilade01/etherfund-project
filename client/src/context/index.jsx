@@ -98,3 +98,6 @@ export const StateContextProvider = ({ children }) => {
 }
 
 export const useStateContext = () => useContext(StateContext);
+
+// Export theme context
+export { ThemeProvider, useTheme } from './ThemeContext';
