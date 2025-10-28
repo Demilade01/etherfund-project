@@ -6,12 +6,13 @@ import { useStateContext } from '../context';
 import { money } from '../assets';
 import { CustomButton, FormField, Loader } from '../components';
 import { checkIfImage } from '../utils';
+import { CampaignForm } from '../types';
 
 const CreateCampaign = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const { createCampaign } = useStateContext();
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<CampaignForm & { name: string }>({
     name: '',
     title: '',
     description: '',
@@ -20,17 +21,17 @@ const CreateCampaign = () => {
     image: ''
   });
 
-  const handleFormFieldChange = (fieldName, e) => {
+  const handleFormFieldChange = (fieldName: string, e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [fieldName]: e.target.value })
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    checkIfImage(form.image, async (exists) => {
+    checkIfImage(form.image, async (exists: boolean) => {
       if(exists) {
         setIsLoading(true)
-        await createCampaign({ ...form, target: ethers.utils.parseUnits(form.target, 18)})
+        await createCampaign({ ...form, target: ethers.utils.parseUnits(form.target, 18).toString()})
         setIsLoading(false);
         navigate('/');
       } else {
@@ -68,6 +69,7 @@ const CreateCampaign = () => {
         <FormField
             labelName="Story *"
             placeholder="Write your story"
+            inputType="text"
             isTextArea
             value={form.description}
             handleChange={(e) => handleFormFieldChange('description', e)}
@@ -108,6 +110,7 @@ const CreateCampaign = () => {
               btnType="submit"
               title="Submit new campaign"
               styles="bg-[#1dc071]"
+              handleClick={() => {}}
             />
           </div>
       </form>

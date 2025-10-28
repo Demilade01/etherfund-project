@@ -6,6 +6,7 @@ import { useStateContext } from '../context';
 import { CountBox, CustomButton, Loader } from '../components';
 import { calculateBarPercentage, daysLeft } from '../utils';
 import { thirdweb } from '../assets';
+import { Donation } from '../types';
 
 const CampaignDetails = () => {
   const { state } = useLocation();
@@ -13,7 +14,7 @@ const CampaignDetails = () => {
   const { donate, getDonations, contract, address } = useStateContext();
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState('');
-  const [donators, setDonators] = useState([])
+  const [donators, setDonators] = useState<Donation[]>([])
 
   const remainingDays = daysLeft(state.deadline);
 
@@ -84,8 +85,8 @@ const CampaignDetails = () => {
 
             <div className='mt-[20px] flex flex-col gap-4'>
               {donators.length > 0 ? donators.map((item, i) => (
-                <div key={`${item.donator}-${index}`} className='flex justify-between items-center gap-4'>
-                  <p className='font-epilogue font-normal text-[16px] text-[#b2b3bd] leading-[26px] break-all'>{index + 1}. {item.donator}</p>
+                <div key={`${item.donator}-${i}`} className='flex justify-between items-center gap-4'>
+                  <p className='font-epilogue font-normal text-[16px] text-[#b2b3bd] leading-[26px] break-all'>{i + 1}. {item.donator}</p>
                   <p className='font-epilogue font-normal text-[16px] text-[#808191] leading-[26px] break-all'>{item.donation}</p>
                 </div>
               )) : (
