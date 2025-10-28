@@ -14,8 +14,8 @@ export const navlinks = [
   {
     name: 'payment',
     imgUrl: payment,
-    link: '/',
-    disabled: true,
+    link: '/payment',
+    disabled: false,
   },
   {
     name: 'withdraw',

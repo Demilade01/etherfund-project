@@ -91,3 +91,27 @@ export interface ThemeContextType {
   toggleTheme: () => void;
 }
 
+// Payment types
+export interface PaymentState {
+  step: 'amount' | 'preview' | 'processing' | 'success' | 'error';
+  amount: string;
+  message: string;
+  isAnonymous: boolean;
+  transactionHash?: string;
+  error?: string;
+}
+
+export interface DonationPreset {
+  label: string;
+  amount: string;
+  popular?: boolean;
+}
+
+export interface TransactionDetails {
+  amount: string;
+  gasEstimate?: string;
+  total?: string;
+  recipient: string;
+  campaignTitle: string;
+}
+

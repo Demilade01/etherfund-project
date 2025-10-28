@@ -6,3 +6,12 @@ export { default as FormField} from './FormField';
 export { default as FundCard} from './FundCard';
 export { default as Loader} from './Loader';
 export { default as DisplayCampaigns} from './DisplayCampaigns';
+
+// Payment Components
+export {
+  PaymentAmountStep,
+  PaymentPreviewStep,
+  PaymentProcessingStep,
+  PaymentSuccessStep,
+  PaymentErrorStep,
+} from './payment';

@@ -120,9 +120,9 @@ const CampaignDetails = () => {
 
               <CustomButton
                 btnType="button"
-                title="Fund Campaign"
+                title="Donate Now"
                 styles="w-full bg-[#8c6dfd]"
-                handleClick={handleDonate}
+                handleClick={() => navigate('/payment', { state })}
               />
             </div>
           </div>
