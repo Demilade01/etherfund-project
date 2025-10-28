@@ -3,6 +3,10 @@
   "scripts": {
     "build": "npx thirdweb@latest detect",
     "deploy": "npx thirdweb@latest deploy",
+    "deploy:base": "npx thirdweb@latest deploy --network base",
+    "deploy:base-goerli": "npx thirdweb@latest deploy --network baseGoerli",
+    "deploy:base-sepolia": "npx thirdweb@latest deploy --network baseSepolia",
+    "deploy:goerli": "npx thirdweb@latest deploy --network goerli",
     "release": "npx thirdweb@latest release"
   },
   "devDependencies": {
