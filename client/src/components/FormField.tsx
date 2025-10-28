@@ -1,6 +1,7 @@
-import React from 'react'
+import React from 'react';
+import { FormFieldProps } from '../types';
 
-const FormField = ({ labelName, placeholder, inputType, isTextArea,  value, handleChange}) => {
+const FormField: React.FC<FormFieldProps> = ({ labelName, placeholder, inputType, isTextArea = false, value, handleChange }) => {
   return (
     <label className='flex-1 flex flex-col w-full'>
       {labelName && (
