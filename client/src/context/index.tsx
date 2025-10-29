@@ -76,6 +76,23 @@ export const StateContextProvider: React.FC<StateContextProviderProps> = ({ chil
     return data;
   };
 
+  const withdrawFunds = async (pId: number, amount?: string): Promise<any> => {
+    if (!contract) {
+      throw new Error('Contract not initialized');
+    }
+
+    let data;
+    if (amount) {
+      // Partial withdrawal
+      data = await contract.call('withdrawPartialFunds', [pId, ethers.utils.parseEther(amount)]);
+    } else {
+      // Full withdrawal
+      data = await contract.call('withdrawCampaignFunds', [pId]);
+    }
+
+    return data;
+  };
+
   const getDonations = async (pId: number): Promise<Donation[]> => {
     if (!contract) {
       throw new Error('Contract not initialized');
@@ -114,7 +131,8 @@ export const StateContextProvider: React.FC<StateContextProviderProps> = ({ chil
         getCampaigns,
         getUserCampaigns,
         donate,
-        getDonations
+        getDonations,
+        withdrawFunds
       }}
     >
       {children}

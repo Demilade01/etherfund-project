@@ -84,6 +84,7 @@ export interface StateContextType {
   getUserCampaigns: () => Promise<Campaign[]>;
   donate: (pId: number, amount: string) => Promise<any>;
   getDonations: (pId: number) => Promise<Donation[]>;
+  withdrawFunds: (pId: number, amount?: string) => Promise<any>;
 }
 
 export interface ThemeContextType {
