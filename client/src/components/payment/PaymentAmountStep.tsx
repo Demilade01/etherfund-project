@@ -2,6 +2,7 @@ import React from 'react';
 import { CustomButton } from '../index';
 import { calculateBarPercentage, daysLeft } from '../../utils';
 import { Campaign, PaymentState, DonationPreset } from '../../types';
+import { useTheme } from '../../context';
 
 interface PaymentAmountStepProps {
   campaign: Campaign;

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useStateContext } from '../context';
+import { useStateContext, useTheme } from '../context';
 import { CustomButton, Loader } from '../components';
 import { Campaign } from '../types';
 
 const Withdraw: React.FC = () => {
   const { address } = useStateContext();
+  const { isDarkMode } = useTheme();
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
   const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(null);
   const [withdrawAmount, setWithdrawAmount] = useState<string>('');
@@ -127,7 +128,7 @@ const Withdraw: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#13131a] py-8">
+    <div className="min-h-screen py-8 theme-bg-primary">
       <div className="max-w-6xl mx-auto px-4">
         {/* Demo Mode Banner */}
         <div className="bg-gradient-to-r from-[#1dc071] via-[#00ff88] to-[#1dc071] text-black px-8 py-4 rounded-2xl mb-8 flex items-center gap-3 shadow-lg shadow-[#1dc071]/20">
@@ -145,19 +146,19 @@ const Withdraw: React.FC = () => {
           <h1 className="text-4xl font-bold bg-gradient-to-r from-white via-[#1dc071] to-white bg-clip-text text-transparent mb-4">
             Withdraw Funds
           </h1>
-          <p className="text-[#808191] text-lg">
+          <p className="text-lg theme-text-secondary">
             Withdraw funds from your successful campaigns
           </p>
         </div>
 
         {campaigns.length === 0 ? (
           <div className="text-center py-12">
-            <div className="bg-[#1c1c24] rounded-2xl p-8 max-w-md mx-auto">
+            <div className="theme-card rounded-2xl p-8 max-w-md mx-auto">
               <div className="bg-[#1dc071]/20 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
                 <span className="text-[#1dc071] text-2xl">💰</span>
               </div>
-              <h3 className="text-xl font-semibold text-white mb-4">No Funds Available</h3>
-              <p className="text-[#808191] mb-6">
+              <h3 className="text-xl font-semibold theme-text-primary mb-4">No Funds Available</h3>
+              <p className="theme-text-secondary mb-6">
                 You don't have any campaigns with funds available for withdrawal.
               </p>
               <CustomButton
@@ -171,8 +172,8 @@ const Withdraw: React.FC = () => {
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Campaign Selection */}
-            <div className="bg-gradient-to-br from-[#1c1c24] to-[#2c2c34] rounded-2xl p-8 border border-[#3a3a43]/50 shadow-xl">
-              <h3 className="text-2xl font-bold text-white mb-6">Select Campaign</h3>
+            <div className="theme-card rounded-2xl p-8 shadow-xl">
+              <h3 className="text-2xl font-bold theme-text-primary mb-6">Select Campaign</h3>
               <div className="space-y-4">
                 {campaigns.map((campaign) => (
                   <div
@@ -191,17 +192,17 @@ const Withdraw: React.FC = () => {
                         className="w-16 h-16 rounded-lg object-cover"
                       />
                       <div className="flex-1">
-                        <h4 className="text-white font-semibold text-lg mb-1">
+                        <h4 className="theme-text-primary font-semibold text-lg mb-1">
                           {campaign.title}
                         </h4>
-                        <p className="text-[#808191] text-sm mb-2 line-clamp-2">
+                        <p className="theme-text-secondary text-sm mb-2 line-clamp-2">
                           {campaign.description}
                         </p>
                         <div className="flex justify-between items-center">
                           <span className="text-[#1dc071] font-bold text-lg">
                             {campaign.amountCollected} ETH
                           </span>
-                          <span className="text-[#808191] text-sm">
+                          <span className="theme-text-secondary text-sm">
                             Available
                           </span>
                         </div>
@@ -213,16 +214,16 @@ const Withdraw: React.FC = () => {
             </div>
 
             {/* Withdrawal Form */}
-            <div className="bg-gradient-to-br from-[#1c1c24] to-[#2c2c34] rounded-2xl p-8 border border-[#3a3a43]/50 shadow-xl">
-              <h3 className="text-2xl font-bold text-white mb-6">Withdrawal Details</h3>
+            <div className="theme-card rounded-2xl p-8 shadow-xl">
+              <h3 className="text-2xl font-bold theme-text-primary mb-6">Withdrawal Details</h3>
 
               {selectedCampaign ? (
                 <div className="space-y-6">
                   {/* Campaign Info */}
-                  <div className="bg-[#2c2c34]/50 rounded-xl p-4">
-                    <h4 className="text-white font-semibold mb-2">{selectedCampaign.title}</h4>
+                  <div className="theme-bg-tertiary rounded-xl p-4">
+                    <h4 className="theme-text-primary font-semibold mb-2">{selectedCampaign.title}</h4>
                     <div className="flex justify-between items-center">
-                      <span className="text-[#808191]">Available Balance</span>
+                      <span className="theme-text-secondary">Available Balance</span>
                       <span className="text-[#1dc071] font-bold text-lg">
                         {selectedCampaign.amountCollected} ETH
                       </span>
@@ -231,7 +232,7 @@ const Withdraw: React.FC = () => {
 
                   {/* Amount Input */}
                   <div>
-                    <label className="block text-white font-semibold mb-2">
+                    <label className="block theme-text-primary font-semibold mb-2">
                       Withdrawal Amount
                     </label>
                     <div className="relative">
@@ -245,7 +246,7 @@ const Withdraw: React.FC = () => {
                         onChange={(e) => handleAmountChange(e.target.value)}
                         className="w-full py-4 px-6 bg-gradient-to-r from-[#2c2c34] to-[#1c1c24] border-2 border-[#3a3a43] rounded-2xl text-white placeholder:text-[#4b5264] focus:outline-none focus:border-[#1dc071] transition-all duration-300 text-lg font-medium"
                       />
-                      <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-[#808191] font-medium">
+                      <div className="absolute right-4 top-1/2 transform -translate-y-1/2 theme-text-secondary font-medium">
                         ETH
                       </div>
                     </div>
@@ -256,7 +257,7 @@ const Withdraw: React.FC = () => {
                       >
                         Max Amount
                       </button>
-                      <span className="text-[#808191] text-sm">
+                      <span className="theme-text-secondary text-sm">
                         Max: {selectedCampaign.amountCollected} ETH
                       </span>
                     </div>
@@ -264,19 +265,19 @@ const Withdraw: React.FC = () => {
 
                   {/* Transaction Summary */}
                   {withdrawAmount && (
-                    <div className="bg-[#2c2c34]/50 rounded-xl p-4 space-y-2">
+                    <div className="theme-bg-tertiary rounded-xl p-4 space-y-2">
                       <div className="flex justify-between items-center">
-                        <span className="text-[#808191]">Withdrawal Amount</span>
-                        <span className="text-white font-medium">{withdrawAmount} ETH</span>
+                        <span className="theme-text-secondary">Withdrawal Amount</span>
+                        <span className="theme-text-primary font-medium">{withdrawAmount} ETH</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-[#808191]">Estimated Gas</span>
-                        <span className="text-white">~0.002 ETH</span>
+                        <span className="theme-text-secondary">Estimated Gas</span>
+                        <span className="theme-text-primary">~0.002 ETH</span>
                       </div>
                       <div className="border-t border-[#3a3a43] pt-2">
                         <div className="flex justify-between items-center">
-                          <span className="text-[#808191] font-semibold">Total Cost</span>
-                          <span className="text-white font-bold">
+                          <span className="theme-text-secondary font-semibold">Total Cost</span>
+                          <span className="theme-text-primary font-bold">
                             {(parseFloat(withdrawAmount) + 0.002).toFixed(3)} ETH
                           </span>
                         </div>
@@ -301,8 +302,8 @@ const Withdraw: React.FC = () => {
                   <div className="bg-[#1dc071]/20 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
                     <span className="text-[#1dc071] text-2xl">📋</span>
                   </div>
-                  <h4 className="text-white font-semibold text-lg mb-2">Select a Campaign</h4>
-                  <p className="text-[#808191]">
+                  <h4 className="theme-text-primary font-semibold text-lg mb-2">Select a Campaign</h4>
+                  <p className="theme-text-secondary">
                     Choose a campaign from the left to start withdrawing funds.
                   </p>
                 </div>
