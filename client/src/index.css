@@ -104,3 +104,47 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .light input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(0.2);
 }
+
+/* Theme-aware utility classes */
+.theme-bg-primary {
+  background-color: var(--bg-primary);
+}
+
+.theme-bg-secondary {
+  background-color: var(--bg-secondary);
+}
+
+.theme-bg-tertiary {
+  background-color: var(--bg-tertiary);
+}
+
+.theme-text-primary {
+  color: var(--text-primary);
+}
+
+.theme-text-secondary {
+  color: var(--text-secondary);
+}
+
+.theme-accent-primary {
+  color: var(--accent-primary);
+}
+
+.theme-border {
+  border-color: var(--bg-tertiary);
+}
+
+.theme-card {
+  background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+  border: 1px solid var(--bg-tertiary);
+}
+
+.theme-card-dark {
+  background: linear-gradient(135deg, #1c1c24, #2c2c34);
+  border: 1px solid rgba(58, 58, 67, 0.5);
+}
+
+.theme-card-light {
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
