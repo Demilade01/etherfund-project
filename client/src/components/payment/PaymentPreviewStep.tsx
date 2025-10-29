@@ -28,7 +28,7 @@ const PaymentPreviewStep: React.FC<PaymentPreviewStepProps> = ({
             <span className="text-[#808191]">Campaign</span>
             <span className="text-white font-medium">{campaign.title}</span>
           </div>
-
+    
           <div className="flex justify-between items-center py-2">
             <span className="text-[#808191]">Donation Amount</span>
             <span className="text-white font-medium text-[18px]">{paymentState.amount} ETH</span>
