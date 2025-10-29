@@ -44,15 +44,38 @@ contract CrowdFunding {
     campaign.donators.push(msg.sender);
     campaign.donations.push(amount);
 
-    (bool sent,) = payable(campaign.owner).call{value: amount}("");
-
-    if(sent) {
-      campaign.amountCollected = campaign.amountCollected + amount;
-    }
+    // Store funds in contract instead of sending directly
+    campaign.amountCollected = campaign.amountCollected + amount;
   }
 
   function getDonators(uint256 _id) view public returns (address[] memory, uint256[] memory) {
     return (campaigns[_id].donators, campaigns[_id].donations);
+  }
+
+  function withdrawCampaignFunds(uint256 _id) public {
+    Campaign storage campaign = campaigns[_id];
+
+    require(msg.sender == campaign.owner, "Only campaign owner can withdraw funds");
+    require(campaign.amountCollected > 0, "No funds available to withdraw");
+
+    uint256 amount = campaign.amountCollected;
+    campaign.amountCollected = 0;
+
+    (bool sent,) = payable(msg.sender).call{value: amount}("");
+    require(sent, "Failed to send funds");
+  }
+
+  function withdrawPartialFunds(uint256 _id, uint256 _amount) public {
+    Campaign storage campaign = campaigns[_id];
+
+    require(msg.sender == campaign.owner, "Only campaign owner can withdraw funds");
+    require(_amount > 0, "Amount must be greater than 0");
+    require(_amount <= campaign.amountCollected, "Insufficient funds");
+
+    campaign.amountCollected = campaign.amountCollected - _amount;
+
+    (bool sent,) = payable(msg.sender).call{value: _amount}("");
+    require(sent, "Failed to send funds");
   }
 
   function getCampaigns() public view returns (Campaign[] memory) {
