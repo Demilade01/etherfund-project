@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { useStateContext } from '../context';
+import { useStateContext, useTheme } from '../context';
 import {
   Loader,
   PaymentAmountStep,
@@ -16,6 +16,7 @@ const Payment: React.FC = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
   const { donate, address, contract } = useStateContext();
+  const { isDarkMode } = useTheme();
 
   const [paymentState, setPaymentState] = useState<PaymentState>({
     step: 'amount',
@@ -119,28 +120,28 @@ const Payment: React.FC = () => {
   // Campaign is always available (real data or mock data)
 
   return (
-    <div className="min-h-screen bg-[#13131a] py-8 px-4">
+    <div className="min-h-screen py-6 sm:py-8 px-4 sm:px-6 theme-bg-primary">
       {isLoading && <Loader />}
 
 
       {/* Header */}
-      <div className="max-w-4xl mx-auto mb-8">
-        <h1 className="font-epilogue font-semibold text-[28px] text-white text-center mb-4">
+      <div className="max-w-4xl mx-auto mb-6 sm:mb-8">
+        <h1 className="font-epilogue font-semibold text-[24px] sm:text-[28px] theme-text-primary text-center mb-4">
           Make a Donation
         </h1>
 
         {/* Mock Wallet Status */}
-        <div className="bg-[#1c1c24] rounded-[10px] p-4 max-w-md mx-auto">
-          <div className="flex items-center justify-between">
+        <div className="theme-card rounded-[10px] p-3 sm:p-4 max-w-md mx-auto">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
             <div>
-              <p className="text-[#808191] text-[12px]">Connected Wallet</p>
-              <p className="text-white font-medium">
+              <p className="theme-text-secondary text-[10px] sm:text-[12px]">Connected Wallet</p>
+              <p className="theme-text-primary font-medium text-sm sm:text-base">
                 {(address || '0xabcd...5678').substring(0, 6)}...{(address || '0xabcd...5678').substring(38)}
               </p>
             </div>
-            <div className="text-right">
-              <p className="text-[#808191] text-[12px]">Balance</p>
-              <p className="text-white font-medium">2.547 ETH</p>
+            <div className="text-left sm:text-right">
+              <p className="theme-text-secondary text-[10px] sm:text-[12px]">Balance</p>
+              <p className="theme-text-primary font-medium text-sm sm:text-base">2.547 ETH</p>
             </div>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { DisplayCampaigns } from '../components';
-import { useStateContext } from '../context';
+import { useStateContext, useTheme } from '../context';
 import { Campaign } from '../types';
 
 const Home = () => {
@@ -9,6 +9,7 @@ const Home = () => {
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
 
   const { address, contract, getCampaigns } = useStateContext();
+  const { isDarkMode } = useTheme();
 
   const fetchCampaigns = async () => {
     const data = await getCampaigns();
