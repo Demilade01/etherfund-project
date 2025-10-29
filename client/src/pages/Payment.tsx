@@ -122,25 +122,9 @@ const Payment: React.FC = () => {
     <div className="min-h-screen bg-[#13131a] py-8 px-4">
       {isLoading && <Loader />}
 
-      {/* Demo Mode Banner */}
-      <div className="bg-gradient-to-r from-[#4acd8d] to-[#1dc071] text-white text-center py-3 mb-4">
-        <p className="font-epilogue text-[14px] font-medium">
-          🚀 DEMO MODE - Using mock data to showcase payment flow
-        </p>
-        <p className="font-epilogue text-[12px] opacity-90">
-          Access via sidebar "Payment" or click "Donate Now" on any campaign
-        </p>
-      </div>
 
       {/* Header */}
       <div className="max-w-4xl mx-auto mb-8">
-        <button
-          onClick={() => navigate(-1)}
-          className="text-[#808191] hover:text-white transition-colors mb-4"
-        >
-          ← Back to Campaign
-        </button>
-
         <h1 className="font-epilogue font-semibold text-[28px] text-white text-center mb-4">
           Make a Donation
         </h1>
