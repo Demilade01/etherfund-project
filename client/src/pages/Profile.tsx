@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { DisplayCampaigns, CustomButton } from '../components';
-import { useStateContext } from '../context';
+import { useStateContext, useTheme } from '../context';
 import { Campaign, Donation } from '../types';
 
 const Profile: React.FC = () => {
   const navigate = useNavigate();
   const { address, getUserCampaigns, getDonations } = useStateContext();
+  const { isDarkMode } = useTheme();
 
   const [isLoading, setIsLoading] = useState(false);
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
@@ -108,7 +109,7 @@ const Profile: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#13131a] py-8">
+    <div className="min-h-screen py-8 theme-bg-primary">
       <div className="max-w-6xl mx-auto px-4">
         {/* Demo Mode Banner */}
         <div className="bg-gradient-to-r from-[#1dc071] via-[#00ff88] to-[#1dc071] text-black px-8 py-4 rounded-2xl mb-8 flex items-center gap-3 shadow-lg shadow-[#1dc071]/20">
@@ -122,7 +123,7 @@ const Profile: React.FC = () => {
         </div>
 
         {/* Profile Header */}
-        <div className="bg-gradient-to-br from-[#1c1c24] to-[#2c2c34] rounded-2xl p-8 mb-8 border border-[#3a3a43]/50 shadow-xl">
+        <div className="theme-card rounded-2xl p-8 mb-8 shadow-xl">
           <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
             <div className="relative">
               <div className="w-24 h-24 bg-gradient-to-br from-[#1dc071] to-[#00ff88] rounded-full flex items-center justify-center">
@@ -136,10 +137,10 @@ const Profile: React.FC = () => {
             </div>
 
             <div className="flex-1">
-              <h1 className="text-3xl font-bold text-white mb-2">
+              <h1 className="text-3xl font-bold theme-text-primary mb-2">
                 {address ? formatAddress(address) : 'Anonymous User'}
               </h1>
-              <p className="text-[#808191] text-lg mb-4">
+              <p className="text-lg theme-text-secondary mb-4">
                 Campaign Creator & Supporter
               </p>
               <div className="flex flex-wrap gap-4">
@@ -162,28 +163,28 @@ const Profile: React.FC = () => {
 
         {/* Stats Overview */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
-          <div className="bg-gradient-to-br from-[#1c1c24] to-[#2c2c34] rounded-xl p-6 border border-[#3a3a43]/50 shadow-lg">
+          <div className="theme-card rounded-xl p-6 shadow-lg">
             <div className="text-center">
-              <h4 className="text-3xl font-bold text-[#1dc071] mb-2">{userStats.totalRaised} ETH</h4>
-              <p className="text-[#808191] font-medium">Total Raised</p>
+              <h4 className="text-3xl font-bold theme-accent-primary mb-2">{userStats.totalRaised} ETH</h4>
+              <p className="font-medium theme-text-secondary">Total Raised</p>
             </div>
           </div>
-          <div className="bg-gradient-to-br from-[#1c1c24] to-[#2c2c34] rounded-xl p-6 border border-[#3a3a43]/50 shadow-lg">
+          <div className="theme-card rounded-xl p-6 shadow-lg">
             <div className="text-center">
-              <h4 className="text-3xl font-bold text-white mb-2">{userStats.campaignsCreated}</h4>
-              <p className="text-[#808191] font-medium">Campaigns Created</p>
+              <h4 className="text-3xl font-bold theme-text-primary mb-2">{userStats.campaignsCreated}</h4>
+              <p className="font-medium theme-text-secondary">Campaigns Created</p>
             </div>
           </div>
-          <div className="bg-gradient-to-br from-[#1c1c24] to-[#2c2c34] rounded-xl p-6 border border-[#3a3a43]/50 shadow-lg">
+          <div className="theme-card rounded-xl p-6 shadow-lg">
             <div className="text-center">
-              <h4 className="text-3xl font-bold text-white mb-2">{userStats.totalDonations}</h4>
-              <p className="text-[#808191] font-medium">Total Donations</p>
+              <h4 className="text-3xl font-bold theme-text-primary mb-2">{userStats.totalDonations}</h4>
+              <p className="font-medium theme-text-secondary">Total Donations</p>
             </div>
           </div>
-          <div className="bg-gradient-to-br from-[#1c1c24] to-[#2c2c34] rounded-xl p-6 border border-[#3a3a43]/50 shadow-lg">
+          <div className="theme-card rounded-xl p-6 shadow-lg">
             <div className="text-center">
-              <h4 className="text-3xl font-bold text-white mb-2">{userStats.activeCampaigns}</h4>
-              <p className="text-[#808191] font-medium">Active Campaigns</p>
+              <h4 className="text-3xl font-bold theme-text-primary mb-2">{userStats.activeCampaigns}</h4>
+              <p className="font-medium theme-text-secondary">Active Campaigns</p>
             </div>
           </div>
         </div>
@@ -201,7 +202,7 @@ const Profile: React.FC = () => {
               className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
                 activeTab === tab.id
                   ? 'bg-gradient-to-r from-[#1dc071] to-[#00ff88] text-black'
-                  : 'bg-[#2c2c34] text-[#808191] hover:text-white hover:bg-[#3a3a43]'
+                  : 'theme-bg-tertiary theme-text-secondary hover:theme-text-primary'
               }`}
             >
               {tab.label}
